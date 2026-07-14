@@ -1,17 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
+    <div class="max-full bg-white min-h-screen">
+        <h1 class="text-center py-5 font-bold text-lg">なにをする？</h1>
+
+        <div class="flex max-w-2xl mx-auto gap-5">
+        <a class="w-1/2 text-center bg-blue-400 text-white px-5 py-2 rounded" href="{{ route('posts.index') }}">投稿一覧を見る</a>
+        <a class="w-1/2 text-center  bg-blue-400 text-white px-5 py-2 rounded" href="{{ route('posts.create') }}">投稿する</a>
         </div>
     </div>
 </x-app-layout>

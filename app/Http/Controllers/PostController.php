@@ -10,18 +10,24 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::all();
-        return view('posts.index',compact('posts'));
+        $posts = Post::query()
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
+            
+        return view('posts.index', compact('posts'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view ('posts.create');
+        return view('posts.create');
     }
 
     /**
@@ -29,10 +35,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title'=>'required|string|max:255',
-            'content'=>'required',
-        ]);
+        $request->validate(
+            [
+                'title' => 'required|string|max:255',
+                'content' => 'required',
+            ],
+            [
+                'title.required' => 'タイトルは必須入力です。',
+                'content.required' => 'コンテンツは必須入力です',
+            ]
+        );
+
+        $post = new Post();
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->save();
 
         Post::create($request->only(['title', 'content']));
         return redirect('/posts');
@@ -51,7 +68,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit',compact('post'));
     }
 
     /**
