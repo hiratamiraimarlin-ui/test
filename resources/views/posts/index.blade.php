@@ -1,8 +1,9 @@
 <x-app-layout>
 
     <div class="max-w-5xl mx-auto">
-       
-        <h1 class="font-bold text-xl text-center my-5">投稿一覧</h1>
+       <div class="mx-auto flex justify-center">
+        <h1 class="bg-green-400 text-white font-bold text-xl text-center my-5 px-10 py-2 rounded">投稿一覧</h1>
+        </div>
         <table class="w-full mx-auto">
             <tr class="flex w-full">
                 <th class="w-1/3 text-xs text-center">タイトル</th>
@@ -12,15 +13,15 @@
             </tr>
              @foreach ($posts as $post)
             <tr class=" flex w-full border border-gray-500 border-collapse">
-                <td class="border-r border-gray-500 bg-white w-1/3 text-center py-3">
+                <td class="border-r border-gray-500 bg-white w-1/3 text-center content-center py-3">
                 {{ $post->title }}
                    </td>
-                   <td class="border-r border-gray-500 bg-white w-1/2 text-center py-3">
+                   <td class="border-r border-gray-500 bg-white w-1/2 text-center py-3 content-center">
                   {{ $post->content }}
                     </td>
-                    <td class="border-r border-gray-500 bg-white w-1/6 text-center py-3">{{ $post->id }}
+                    <td class="border-r border-gray-500 bg-white w-1/6 text-center py-3 content-center">{{ $post->id }}
                     </td>
-                    <td class="border-r border-gray-500 bg-white w-1/6 text-center py-3">
+                    <td class="border-r border-gray-500 bg-white w-1/6 text-center py-3 content-center">
                         <a href="{{ route('posts.edit',$post) }}">編集</a>
                         <form action="{{ route('posts.destroy',$post) }}" method="POST" nsubmit="return confirm('本当に削除しますか？');">
                             @csrf

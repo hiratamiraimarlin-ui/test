@@ -35,6 +35,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate(
             [
                 'title' => 'required|string|max:255',
@@ -50,8 +51,6 @@ class PostController extends Controller
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->save();
-
-        Post::create($request->only(['title', 'content']));
         return redirect('/posts');
     }
 
@@ -76,7 +75,11 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->save();
+
+        return redirect('/posts');
     }
 
     /**
@@ -84,6 +87,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect('/posts');
     }
 }
